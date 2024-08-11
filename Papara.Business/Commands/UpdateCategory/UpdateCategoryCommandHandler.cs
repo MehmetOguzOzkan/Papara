@@ -52,7 +52,6 @@ namespace Papara.Business.Commands.UpdateCategory
             await _unitOfWork.CompleteWithTransaction();
 
             _memoryCache.Remove("CategoryList");
-            //await _distributedCache.RemoveAsync("CategoryList");
 
             var response = _mapper.Map<CategoryResponse>(category);
             return new ResponseHandler<CategoryResponse>(response);

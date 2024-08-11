@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Papara.Business.Commands.DeleteUser
+namespace Papara.Business.Queries.GetWalletBalanceByUser
 {
-    public record DeleteUserCommand(Guid Id) : IRequest<ResponseHandler>;
+    public record GetWalletBalanceByUserQuery() : IRequest<ResponseHandler<object>>;
 }

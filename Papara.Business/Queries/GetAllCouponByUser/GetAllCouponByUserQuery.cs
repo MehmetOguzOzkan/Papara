@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllCouponByUser
 {
-    public record GetAllCouponByUserQuery(Guid UserId) : IRequest<ResponseHandler<IEnumerable<CouponResponse>>>;
+    public record GetAllCouponByUserQuery() : IRequest<ResponseHandler<IEnumerable<CouponResponse>>>;
 }

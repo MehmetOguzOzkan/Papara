@@ -30,6 +30,10 @@ using Papara.Business.DTOs.OrderDetail;
 using Papara.Business.DTOs.Product;
 using Papara.Business.DTOs.ProductCategory;
 using Papara.Business.DTOs.User;
+using Papara.Business.Job;
+using Papara.Business.Message;
+using Papara.Business.Notification;
+using Hangfire;
 
 namespace Papara.Business
 {
@@ -105,10 +109,6 @@ namespace Papara.Business
             services.AddScoped<ITokenService, TokenService>();
 
             // FluentValidation
-            //services.AddFluentValidationAutoValidation()
-            //    .AddFluentValidationClientsideAdapters()
-            //    .AddValidatorsFromAssemblyContaining<PaymentRequestValidator>();
-
             services.AddTransient<IValidator<CategoryRequest>, CategoryRequestValidator>();
             services.AddTransient<IValidator<CouponRequest>, CouponRequestValidator>();
             services.AddTransient<IValidator<OrderRequest>, OrderRequestValidator>();
@@ -121,6 +121,13 @@ namespace Papara.Business
             services.AddTransient<IValidator<PaymentRequest>, PaymentRequestValidator>();
             services.AddTransient<IValidator<UserRequest>, UserRequestValidator>();
             services.AddTransient<IValidator<PaymentRequestWithoutCard>, PaymentRequestWithoutCardValidator>();
+            services.AddTransient<IValidator<MoneyTransferRequest>, MoneyTransferRequestValidator>();
+
+            // Notification
+            services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<EmailProcessorJob>();
+            services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));
+            services.AddSingleton<INotificationService, NotificationService>();
 
             return services;
         }

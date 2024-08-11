@@ -45,7 +45,6 @@ namespace Papara.Business.Commands.DeleteCategory
             await _unitOfWork.CompleteWithTransaction();
 
             _memoryCache.Remove("CategoryList");
-            //await _distributedCache.RemoveAsync("CategoryList");
 
             return new ResponseHandler("Category deleted successfully");
         }

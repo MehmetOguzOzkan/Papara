@@ -1,17 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Papara.Business.Notification
 {
-    public class NotificationService : INotificationService
+    internal class NotificationService : INotificationService
     {
-        public void SendEmail(string subject, string email, string content)
+        private readonly SmtpSettings _smtpSettings;
+
+        public NotificationService(IOptions<SmtpSettings> smtpSettings)
         {
-            throw new NotImplementedException();
+            _smtpSettings = smtpSettings.Value;
+        }
+
+        public async Task SendEmail(string to, string subject, string body)
+        {
+            var fromAddress = new MailAddress(_smtpSettings.FromAddress, _smtpSettings.FromName);
+            var toAddress = new MailAddress(to);
+            var smtpClient = new SmtpClient
+            {
+                Host = _smtpSettings.Host,
+                Port = _smtpSettings.Port,
+                EnableSsl = _smtpSettings.EnableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(_smtpSettings.FromAddress, _smtpSettings.FromPassword)
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                await smtpClient.SendMailAsync(message);
+            }
         }
     }
 }

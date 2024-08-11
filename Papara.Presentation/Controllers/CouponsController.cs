@@ -25,6 +25,13 @@ namespace Papara.Presentation.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Retrieves all coupons.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible only by users with the "admin" role. It returns a list of all available coupons in the system.
+        /// </remarks>
+        /// <response code="200">Returns a list of all coupons.</response>
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<ResponseHandler<IEnumerable<CouponResponse>>> GetAllCoupons()
@@ -34,6 +41,15 @@ namespace Papara.Presentation.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Retrieves a coupon by its unique identifier.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible by both "user" and "admin" roles. It returns the details of the coupon identified by the given ID.
+        /// </remarks>
+        /// <param name="id">The unique identifier of the coupon.</param>
+        /// <response code="200">Returns the coupon details.</response>
+        /// <response code="404">Coupon not found.</response>
         [HttpGet("{id:guid}")]
         [Authorize(Roles = "user,admin")]
         public async Task<ResponseHandler<CouponResponse>> GetCouponById(Guid id)
@@ -43,15 +59,32 @@ namespace Papara.Presentation.Controllers
             return result;
         }
 
-        [HttpGet("Users/{userId:guid}")]
+        /// <summary>
+        /// Retrieves all coupons available for the current user.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible by both "user" and "admin" roles. It returns a list of coupons associated with the currently authenticated user.
+        /// </remarks>
+        /// <response code="200">Returns a list of coupons for the current user.</response>
+        /// <response code="404">No coupons found for the current user.</response>
+        [HttpGet("Users/Coupons")]
         [Authorize(Roles = "user,admin")]
-        public async Task<ResponseHandler<IEnumerable<CouponResponse>>> GetCouponsByUser(Guid userId)
+        public async Task<ResponseHandler<IEnumerable<CouponResponse>>> GetCouponsByUser()
         {
-            var query = new GetAllCouponByUserQuery(userId);
+            var query = new GetAllCouponByUserQuery();
             var result = await _mediator.Send(query);
             return result;
         }
 
+        /// <summary>
+        /// Retrieves a coupon by its unique code.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible by both "user" and "admin" roles. It returns the coupon details identified by the provided code.
+        /// </remarks>
+        /// <param name="code">The unique code of the coupon.</param>
+        /// <response code="200">Returns the coupon details.</response>
+        /// <response code="404">Coupon not found.</response>
         [HttpGet("Codes/{code}")]
         [Authorize(Roles = "user,admin")]
         public async Task<ResponseHandler<CouponResponse>> GetCouponByCode(string code)
@@ -61,6 +94,15 @@ namespace Papara.Presentation.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates a new coupon.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible only by users with the "admin" role. It creates a new coupon using the provided request data.
+        /// </remarks>
+        /// <param name="value">The coupon data to be created.</param>
+        /// <response code="201">Returns the created coupon details.</response>
+        /// <response code="400">Invalid request data.</response>
         [HttpPost]
         [Authorize(Roles = "admin")]
         public async Task<ResponseHandler<CouponResponse>> CreateCoupon([FromBody] CouponRequest value)
@@ -70,6 +112,17 @@ namespace Papara.Presentation.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Updates an existing coupon.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible only by users with the "admin" role. It updates the coupon identified by the provided ID using the provided request data.
+        /// </remarks>
+        /// <param name="id">The unique identifier of the coupon to be updated.</param>
+        /// <param name="value">The updated coupon data.</param>
+        /// <response code="200">Returns the updated coupon details.</response>
+        /// <response code="400">Invalid request data.</response>
+        /// <response code="404">Coupon not found.</response>
         [HttpPut("{id:guid}")]
         [Authorize(Roles = "admin")]
         public async Task<ResponseHandler<CouponResponse>> UpdateCoupon(Guid id, [FromBody] CouponRequest value)
@@ -79,6 +132,15 @@ namespace Papara.Presentation.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Deletes a coupon.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint is accessible only by users with the "admin" role. It deletes the coupon identified by the provided ID.
+        /// </remarks>
+        /// <param name="id">The unique identifier of the coupon to be deleted.</param>
+        /// <response code="204">Coupon successfully deleted.</response>
+        /// <response code="404">Coupon not found.</response>
         [HttpDelete("{id:guid}")]
         [Authorize(Roles = "admin")]
         public async Task<ResponseHandler> DeleteCoupon(Guid id)

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Papara.Business.DTOs.Order;
 using Papara.Business.DTOs.Payment;
+using Papara.Business.Message;
+using Papara.Business.Notification;
 using Papara.Business.Response;
 using Papara.Business.Session;
 using Papara.Data.Entities;
@@ -21,12 +24,16 @@ namespace Papara.Business.Commands.Payment
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IValidator<PaymentRequest> _paymentRequestValidator;
+        private readonly IMessageService _messageService;
+        private readonly INotificationService _notificationService;
 
-        public PaymentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IValidator<PaymentRequest> paymentRequestValidator)
+        public PaymentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IValidator<PaymentRequest> paymentRequestValidator, IMessageService messageService, INotificationService notificationService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _paymentRequestValidator = paymentRequestValidator;
+            _messageService = messageService;
+            _notificationService = notificationService;
         }
 
         public async Task<ResponseHandler<PaymentResponse>> Handle(PaymentCommand request, CancellationToken cancellationToken)
@@ -45,7 +52,22 @@ namespace Papara.Business.Commands.Payment
 
             if(order.IsPaid)
                 return new ResponseHandler<PaymentResponse>($"Order is paid.");
-            
+
+            var user = await _unitOfWork.UserRepository.GetById(order.UserId);
+            if (user == null)
+                return new ResponseHandler<PaymentResponse>($"User not found.");
+
+            var subject = "Papara | Payment Order";
+            var content = $"Hello {user.FirstName} {user.LastName}, You have successfully ordered on Papara.";
+            var to = user.Email;
+
+            var message = new EmailMessage
+            {
+                Email = user.Email,
+                Subject = subject,
+                Body = content
+            };
+
             var totalAmount = order.TotalAmount;
 
             // 3. Coupon Check
@@ -74,6 +96,12 @@ namespace Papara.Business.Commands.Payment
                         Order = _mapper.Map<OrderResponse>(order)
                     };
 
+                    BackgroundJob.Schedule(() =>
+                        SendEmail(to, subject, content),
+                        TimeSpan.FromSeconds(30));
+
+                    _messageService.PublishToQueue(message, "emailQueue");
+
                     return new ResponseHandler<PaymentResponse>(response);
                 }
                 order.UpdateDate = DateTime.UtcNow;
@@ -83,10 +111,6 @@ namespace Papara.Business.Commands.Payment
             }
 
             // 4. User Loyalty Points Process
-            var user = await _unitOfWork.UserRepository.GetById(order.UserId);
-            if (user == null)
-                return new ResponseHandler<PaymentResponse>($"User not found.");
-
             if(user.PointsBalance > 0)
             {
                 if(totalAmount > user.PointsBalance)
@@ -108,6 +132,12 @@ namespace Papara.Business.Commands.Payment
                         Card = request.Request.Card,
                         Order = _mapper.Map<OrderResponse>(order)
                     };
+
+                    BackgroundJob.Schedule(() =>
+                        SendEmail(to, subject, content),
+                        TimeSpan.FromSeconds(30));
+
+                    _messageService.PublishToQueue(message, "emailQueue");
 
                     return new ResponseHandler<PaymentResponse>(response);
                 }
@@ -155,7 +185,19 @@ namespace Papara.Business.Commands.Payment
                 Order = _mapper.Map<OrderResponse>(order)
             };
 
+            BackgroundJob.Schedule(() =>
+                SendEmail(to, subject, content),
+                TimeSpan.FromSeconds(30));
+
+            _messageService.PublishToQueue(message, "emailQueue");
+
             return new ResponseHandler<PaymentResponse>(paymentResponse);
+        }
+
+        [AutomaticRetry(Attempts = 3, DelaysInSeconds = new[] { 10, 15, 18 }, OnAttemptsExceeded = AttemptsExceededAction.Fail)]
+        public void SendEmail(string to, string subject, string content)
+        {
+            _notificationService.SendEmail(to, subject, content).GetAwaiter().GetResult();
         }
     }
 }

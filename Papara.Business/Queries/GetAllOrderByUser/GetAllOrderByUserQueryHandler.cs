@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Papara.Business.DTOs.Coupon;
 using Papara.Business.DTOs.Order;
 using Papara.Business.DTOs.OrderDetail;
 using Papara.Business.Response;
+using Papara.Business.Session;
 using Papara.Data.Entities;
 using Papara.Data.UnitOfWork;
 using System;
@@ -17,16 +20,24 @@ namespace Papara.Business.Queries.GetAllOrderByUser
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly ISessionContext _sessionContext;
 
-        public GetAllOrderByUserQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetAllOrderByUserQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager, ISessionContext sessionContext)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _userManager = userManager;
+            _sessionContext = sessionContext;
         }
 
         public async Task<ResponseHandler<IEnumerable<OrderResponse>>> Handle(GetAllOrderByUserQuery request, CancellationToken cancellationToken)
         {
-            var orders = await _unitOfWork.OrderRepository.Where(o => o.UserId == request.UserId, nameof(Order.User), nameof(Order.OrderDetails) + "." + nameof(OrderDetail.Product));
+            User user = await _userManager.GetUserAsync(_sessionContext.HttpContext.User);
+            if (user == null)
+                return new ResponseHandler<IEnumerable<OrderResponse>>("Login failed.");
+
+            var orders = await _unitOfWork.OrderRepository.Where(o => o.UserId == user.Id, nameof(Order.User), nameof(Order.OrderDetails) + "." + nameof(OrderDetail.Product));
             
             var orderResponses = orders.Select(order =>
             {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papara.Presentation", "Papara.Presentation\Papara.Presentation.csproj", "{FC7573F2-7C11-4A4C-A057-644E3168A363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Papara.Presentation", "Papara.Presentation\Papara.Presentation.csproj", "{FC7573F2-7C11-4A4C-A057-644E3168A363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papara.Business", "Papara.Business\Papara.Business.csproj", "{8C2FE72A-04CD-4BE6-845C-E7FE87DC5EE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Papara.Business", "Papara.Business\Papara.Business.csproj", "{8C2FE72A-04CD-4BE6-845C-E7FE87DC5EE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papara.Data", "Papara.Data\Papara.Data.csproj", "{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Papara.Data", "Papara.Data\Papara.Data.csproj", "{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

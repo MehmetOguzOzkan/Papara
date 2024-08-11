@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllOrderByUser
 {
-    public record GetAllOrderByUserQuery(Guid UserId) : IRequest<ResponseHandler<IEnumerable<OrderResponse>>>;
+    public record GetAllOrderByUserQuery() : IRequest<ResponseHandler<IEnumerable<OrderResponse>>>;
 }

@@ -67,7 +67,6 @@ namespace Papara.Business.Commands.CreateProduct
             await _unitOfWork.CompleteWithTransaction();
 
             _memoryCache.Remove("ProductList");
-            //await _distributedCache.RemoveAsync("ProductList");
 
             var product = await _unitOfWork.ProductRepository.GetById(
                 mapped.Id,

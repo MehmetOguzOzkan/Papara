@@ -45,7 +45,6 @@ namespace Papara.Business.Commands.DeleteProduct
             await _unitOfWork.CompleteWithTransaction();
 
             _memoryCache.Remove("ProductList");
-            //await _distributedCache.RemoveAsync("ProductList");
 
             return new ResponseHandler("Product deleted successfully.");
         }

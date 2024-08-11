@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Papara.Business.DTOs.Authorization;
-using Papara.Business.DTOs.Payment;
+using Papara.Business.DTOs.User;
 using Papara.Business.Response;
 using Papara.Business.Session;
-using Papara.Business.Validation;
 using Papara.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,22 +11,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Papara.Business.Commands.ChangePassword
+namespace Papara.Business.Commands.UpdateWalletBalance
 {
-    public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ResponseHandler>
+    internal class UpdateWalletBalanceCommandHandler : IRequestHandler<UpdateWalletBalanceCommand, ResponseHandler>
     {
         private readonly UserManager<User> _userManager;
         private readonly ISessionContext _sessionContext;
-        private readonly IValidator<ChangePasswordRequest> _validator;
+        private readonly IValidator<MoneyTransferRequest> _validator;
 
-        public ChangePasswordCommandHandler(UserManager<User> userManager, ISessionContext sessionContext, IValidator<ChangePasswordRequest> validator)
+        public UpdateWalletBalanceCommandHandler(UserManager<User> userManager, ISessionContext sessionContext, IValidator<MoneyTransferRequest> validator)
         {
             _userManager = userManager;
             _sessionContext = sessionContext;
             _validator = validator;
         }
 
-        public async Task<ResponseHandler> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseHandler> Handle(UpdateWalletBalanceCommand request, CancellationToken cancellationToken)
         {
             var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
             if (!validationResult.IsValid)
@@ -38,14 +36,20 @@ namespace Papara.Business.Commands.ChangePassword
 
             User user = await _userManager.GetUserAsync(_sessionContext.HttpContext.User);
             if (user == null)
+            {
                 return new ResponseHandler("Login failed.");
+            }
 
-            var userResponse = await _userManager.FindByEmailAsync(user.Email);
-            if (userResponse == null)
-                return new ResponseHandler("Login failed.");
+            if(request.Request.Amount > request.Request.Card.Balance)
+            {
+                return new ResponseHandler("Balance is not enough.");
+            }
 
-            await _userManager.ChangePasswordAsync(userResponse, request.Request.OldPassword, request.Request.NewPassword);
-            return new ResponseHandler("Password changed successfully.");
+            user.WalletBalance += request.Request.Amount;
+            request.Request.Card.Balance -= request.Request.Amount;
+            await _userManager.UpdateAsync(user);
+
+            return new ResponseHandler("Money transfered successfully.");
         }
     }
 }

@@ -73,7 +73,6 @@ namespace Papara.Business.Commands.UpdateProduct
             await _unitOfWork.CompleteWithTransaction();
 
             _memoryCache.Remove("ProductList");
-            //await _distributedCache.RemoveAsync("ProductList");
 
             var updatedProduct = await _unitOfWork.ProductRepository.GetById(product.Id, $"{nameof(Product.ProductCategories)}.{nameof(ProductCategory.Category)}");
             var response = _mapper.Map<ProductResponse>(updatedProduct);

@@ -44,16 +44,16 @@ namespace Papara.Business.Commands.CreateUserAsAdmin
             var newUserResponse = await _userManager.CreateAsync(newUser, request.Request.Password);
             if (!newUserResponse.Succeeded)
             {
-                return new ResponseHandler("Register failed.");
+                return new ResponseHandler("The user was not successfully created as admin.");
             }
 
             var addRoleResponse = await _userManager.AddToRoleAsync(newUser, "Admin");
             if (!addRoleResponse.Succeeded)
             {
-                return new ResponseHandler("Register failed.");
+                return new ResponseHandler("The user was not successfully created as admin.");
             }
+            return new ResponseHandler("The user has been successfully created as admin.");
 
-            return new ResponseHandler("Register successfully.");
         }
     }
 }

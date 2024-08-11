@@ -8,6 +8,6 @@ namespace Papara.Business.Notification
 {
     public interface INotificationService
     {
-        public void SendEmail(string subject, string email, string content);
+        Task SendEmail(string to, string subject, string body);
     }
 }
