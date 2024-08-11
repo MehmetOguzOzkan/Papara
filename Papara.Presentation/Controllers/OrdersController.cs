@@ -48,7 +48,7 @@ namespace Papara.Presentation.Controllers
         /// </remarks>
         /// <response code="200">Returns a list of orders for the current user.</response>
         /// <response code="404">No orders found for the current user.</response>
-        [HttpGet("Users/Orders")]
+        [HttpGet("Users")]
         [Authorize(Roles = "user,admin")]
         public async Task<ResponseHandler<IEnumerable<OrderResponse>>> GetAllByUser()
         {

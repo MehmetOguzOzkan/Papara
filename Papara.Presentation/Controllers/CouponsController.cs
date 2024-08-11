@@ -67,7 +67,7 @@ namespace Papara.Presentation.Controllers
         /// </remarks>
         /// <response code="200">Returns a list of coupons for the current user.</response>
         /// <response code="404">No coupons found for the current user.</response>
-        [HttpGet("Users/Coupons")]
+        [HttpGet("Users")]
         [Authorize(Roles = "user,admin")]
         public async Task<ResponseHandler<IEnumerable<CouponResponse>>> GetCouponsByUser()
         {
