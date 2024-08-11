@@ -24,19 +24,6 @@ The solution is structured in three primary layers:
 
 ![Architecture](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/Architecture.png)
 
-```plaintext
-+--------------------------------------------------+
-|                 Representation Layer             |
-|            (Controllers & API Endpoints)         |
-+--------------------------------------------------+
-|                 Business Layer                   |
-| (CQRS, MediatR, Services, Validation, Mapping)   |
-+--------------------------------------------------+
-|                 Data Layer                       |
-| (Repositories, UnitOfWork, EF Core, Migrations)  |
-+--------------------------------------------------+
-```
-
 ## Technologies Used
 
 - **ASP.NET Core 8**: For building the Web API.
