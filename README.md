@@ -14,6 +14,7 @@ This project is an advanced .NET 8 Web API for an e-commerce platform. It is des
 - [Background Jobs](#background-jobs)
 - [Messaging](#messaging)
 - [Deployment](#deployment)
+- [API Endpoints](#api-endpoints)
 
 ## Architecture
 
@@ -93,6 +94,8 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 - **Database Diagram**:
 
 ![Database Diagram](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/DatabaseDiagram.png)
+
+## API Endpoints
 
 ## Background Jobs
 
