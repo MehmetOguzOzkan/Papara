@@ -97,6 +97,15 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 
 ## API Endpoints
 
+### Authorization
+
+- **POST /api/Authorization/Login**: Authenticates the user based on the provided credentials.
+- **POST /api/Authorization/Logout**: Logs out the authenticated user.
+- **POST /api/Authorization/Register**: Registers a new user with the provided details.
+- **POST /api/Authorization/ChangePassword**: Changes the password for the authenticated user.
+
+![AuthorizationEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/AuthorizationEndpoints.png)
+
 ## Background Jobs
 
 - **Hangfire**: Manages recurring jobs like sending email notifications or processing large datasets in the background.
