@@ -22,6 +22,8 @@ The solution is structured in three primary layers:
 - **Business Layer**: Implements the core business logic using the CQRS pattern.
 - **Data Layer**: Handles database interactions through UnitOfWork and GenericRepository patterns.
 
+![Architecture](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/Architecture.png)
+
 ```plaintext
 +--------------------------------------------------+
 |                 Representation Layer             |
