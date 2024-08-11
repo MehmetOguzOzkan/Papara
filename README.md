@@ -90,6 +90,9 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 
 - **Entity Framework Core**: Used for database interactions. It supports migrations, seeding, and complex querying.
 - **Multi-Database Support**: The application can switch between MSSQL and PostgreSQL based on configuration settings.
+- **Database Diagram**
+
+![Database Diagram](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/Architecture.png)
 
 ## Background Jobs
 
