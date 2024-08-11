@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Commands.ChangePassword
 {
-    public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ResponseHandler>
+    internal class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ResponseHandler>
     {
         private readonly UserManager<User> _userManager;
         private readonly ISessionContext _sessionContext;
