@@ -106,6 +106,51 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 
 ![AuthorizationEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/AuthorizationEndpoints.png)
 
+### Categories
+
+- **GET /api/Categories**: Retrieves all categories from the database.
+- **GET /api/Categories/{id}**: Retrieves a specific category by its unique identifier.
+- **POST /api/Categories**: Creates a new category.
+- **PUT /api/Categories/{id}**: Updates an existing category.
+- **DELETE /api/Categories/{id}**: Deletes an existing category.
+
+![CategoriesEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/CategoriesEndpoints.png)
+
+### Coupons
+
+- **GET /api/Coupons**: Retrieves all coupons.
+- **GET /api/Coupons/{id}**: Retrieves a coupon by its unique identifier.
+- **GET /api/Coupons/Users**: Retrieves all coupons available for the current user.
+- **GET /api/Coupons/Codes/{code}**: Retrieves a coupon by its unique code.
+- **POST /api/Coupons**: Creates a new coupon.
+- **PUT /api/Coupons/{id}**: Updates an existing coupon.
+- **DELETE /api/Coupons/{id}**: Deletes a coupon.
+
+![CouponsEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/CouponsEndpoints.png)
+
+### Jobs
+
+- **GET /api/Jobs/FireAndForget**: Enqueues a fire-and-forget job.
+- **GET /api/Jobs/Delayed**: Schedules a delayed job.
+- **GET /api/Jobs/Recurring**: Adds or updates a recurring job.
+- **GET /api/Jobs/Continuations**: Schedules a continuation job.
+
+![JobsEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/JobsEndpoints.png)
+
+### Orders And Payment
+
+- **GET /api/Orders**: Retrieves all orders.
+- **GET /api/Orders/Users**: Retrieves all orders placed by the current user.
+- **GET /api/Orders/{id}**: Retrieves an order by its unique identifier.
+- **GET /api/Orders/Codes/{code}**: Retrieves an order by its unique code.
+- **POST /api/Orders**: Creates a new order.
+- **DELETE /api/Orders/{id}**: Deletes an order.
+
+- **POST /api/Payment/Card**: Processes a payment using a credit or debit card.
+- **POST /api/Payment/Wallet**: Processes a payment using wallet balance without a card.
+
+![OrdersPaymentEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/OrdersPaymentEndpoints.png)
+
 ## Background Jobs
 
 - **Hangfire**: Manages recurring jobs like sending email notifications or processing large datasets in the background.
