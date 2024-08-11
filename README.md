@@ -151,6 +151,27 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 
 ![OrdersPaymentEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/OrdersPaymentEndpoints.png)
 
+### Products
+
+- **GET /api/Products**: Retrieves all products.
+- **GET /api/Products/{id}**: Retrieves a product by its unique identifier.
+- **GET /api/Products/Categories/{categoryId}**: Retrieves all products within a specific category.
+- **POST /api/Products**: Creates a new product.
+- **PUT /api/Products/{id}**: Updates an existing product.
+- **DELETE /api/Products/{id}**: Deletes a product.
+
+![ProductsEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/ProductsEndpoints.png)
+
+### Users
+
+- **GET /api/Users/LoyaltyPoints**: Retrieves the loyalty points balance of the current user.
+- **GET /api/Users/WalletBalance**: Retrieves the wallet balance of the current user.
+- **POST /api/Users/AsAdmin**: Creates a new user as an administrator.
+- **PUT /api/Users/{id}**: Updates the details of an existing user.
+- **PATCH /api/Users/WalletBalance**: Updates the wallet balance of the current user.
+
+![UsersEndpoints](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/UsersEndpoints.png)
+
 ## Background Jobs
 
 - **Hangfire**: Manages recurring jobs like sending email notifications or processing large datasets in the background.
