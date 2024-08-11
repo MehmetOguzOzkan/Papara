@@ -92,7 +92,7 @@ The business logic is organized using the CQRS pattern. This structure allows cl
 - **Multi-Database Support**: The application can switch between MSSQL and PostgreSQL based on configuration settings.
 - **Database Diagram**
 
-![Database Diagram](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/Architecture.png)
+![Database Diagram](https://github.com/MehmetOguzOzkan/Papara/blob/master/Images/DatabaseDiagram.png)
 
 ## Background Jobs
 
