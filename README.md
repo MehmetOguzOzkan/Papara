@@ -61,11 +61,6 @@ Manages data persistence using the UnitOfWork and GenericRepository patterns. Th
 
 ## Data Flow
 
-```plaintext
-[Client] --> [API Gateway] --> [Controllers] --> [Business Layer]
-                                            \--> [Data Layer] --> [Database]
-```
-
 - **Request Handling**: Client requests are received by controllers, which route them to the appropriate business logic.
 - **Business Logic Execution**: Commands and queries are processed, validated, and mapped to entities.
 - **Data Persistence**: The Data Layer manages CRUD operations and interacts with the databases.
