@@ -41,10 +41,10 @@ namespace Papara.Business
     {
         public static IServiceCollection AddBusinessLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            // MediatR
+            // Register MediatR handlers from the specified assembly
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateCategoryCommand).Assembly));
 
-            // JWT Configuration
+            // Configure JWT authentication
             var jwtConfig = configuration.GetSection("JwtConfig").Get<JwtConfig>();
             services.Configure<JwtConfig>(configuration.GetSection("JwtConfig"));
             services.AddSingleton(sp => sp.GetRequiredService<IOptions<JwtConfig>>().Value);
@@ -71,10 +71,10 @@ namespace Papara.Business
                 };
             });
 
-            // Memory Cache
+            // Enable in-memory caching
             services.AddMemoryCache();
 
-            // SessionContext
+            // Configure SessionContext with the current HTTP context
             services.AddScoped<ISessionContext>(provider =>
             {
                 var context = provider.GetService<IHttpContextAccessor>();
@@ -84,7 +84,7 @@ namespace Papara.Business
                 return sessionContext;
             });
 
-            // Redis
+            // Configure Redis connection
             var redisConfig = new ConfigurationOptions
             {
                 DefaultDatabase = 0,
@@ -102,13 +102,13 @@ namespace Papara.Business
                 opt.InstanceName = configuration["Redis:InstanceName"];
             });
 
-            // AutoMapper
+            // Register AutoMapper profiles
             services.AddAutoMapper(typeof(MappingProfile));
 
-            // ITokenService
+            // Register TokenService for token management
             services.AddScoped<ITokenService, TokenService>();
 
-            // FluentValidation
+            // Register FluentValidation validators
             services.AddTransient<IValidator<CategoryRequest>, CategoryRequestValidator>();
             services.AddTransient<IValidator<CouponRequest>, CouponRequestValidator>();
             services.AddTransient<IValidator<OrderRequest>, OrderRequestValidator>();
@@ -123,7 +123,7 @@ namespace Papara.Business
             services.AddTransient<IValidator<PaymentRequestWithoutCard>, PaymentRequestWithoutCardValidator>();
             services.AddTransient<IValidator<MoneyTransferRequest>, MoneyTransferRequestValidator>();
 
-            // Notification
+            // Register notification services
             services.AddSingleton<IMessageService, MessageService>();
             services.AddSingleton<EmailProcessorJob>();
             services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));

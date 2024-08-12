@@ -20,6 +20,7 @@ namespace Papara.Data
     {
         public static IServiceCollection AddDataLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            // Determine the database provider and configure the DbContext accordingly
             if (configuration.GetConnectionString("DatabaseProvider") == "MsSql")
             {
                 services.AddDbContext<PaparaDbContext>(options =>
@@ -35,10 +36,12 @@ namespace Papara.Data
                     ServiceLifetime.Transient);
             }
 
+            // Configure Identity with custom options and integrate with the DbContext
             services.AddIdentity<User, IdentityRole<Guid>>().
                 AddEntityFrameworkStores<PaparaDbContext>().AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
             {
+                // Set password requirements
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = false;
@@ -47,6 +50,7 @@ namespace Papara.Data
                 options.Password.RequiredUniqueChars = 1;
             });
 
+            // Register UnitOfWork for managing transactions and repositories
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
             return services;

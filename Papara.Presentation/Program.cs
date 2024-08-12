@@ -8,7 +8,6 @@ using Papara.Business.Job;
 using Papara.Data;
 using Papara.Presentation.Middlewares;
 using Serilog;
-using StackExchange.Redis;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +42,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "Papara API", Version = "v1.0" });
+    c.SwaggerDoc("v1", new() { Title = "Papara E-Commerce Web API", Version = "v1.0" });
     var securityScheme = new OpenApiSecurityScheme
     {
         Name = "Papara Auth Management",
