@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Validation
 {
-    internal class CouponRequestValidator : AbstractValidator<CouponRequest>
+    public class CouponRequestValidator : AbstractValidator<CouponRequest>
     {
         public CouponRequestValidator()
         {

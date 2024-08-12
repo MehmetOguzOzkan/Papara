@@ -11,7 +11,7 @@ using Papara.Data.Entities;
 
 namespace Papara.Data.Context
 {
-    internal class PaparaDbContext : IdentityDbContext<User,IdentityRole<Guid>,Guid>
+    public class PaparaDbContext : IdentityDbContext<User,IdentityRole<Guid>,Guid>
     {
         public PaparaDbContext(DbContextOptions<PaparaDbContext> options) : base(options) { }
 

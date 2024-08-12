@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Validation
 {
-    internal class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
+    public class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
     {
         public ChangePasswordRequestValidator()
         {

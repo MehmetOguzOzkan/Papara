@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Data.UnitOfWork
 {
-    internal class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly PaparaDbContext _context;
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Validation
 {
-    internal class OrderDetailRequestValidator : AbstractValidator<OrderDetailRequest>
+    public class OrderDetailRequestValidator : AbstractValidator<OrderDetailRequest>
     {
         public OrderDetailRequestValidator()
         {

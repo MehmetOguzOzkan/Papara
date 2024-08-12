@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Commands.CreateCoupon
 {
-    internal class CreateCouponCommandHandler : IRequestHandler<CreateCouponCommand, ResponseHandler<CouponResponse>>
+    public class CreateCouponCommandHandler : IRequestHandler<CreateCouponCommand, ResponseHandler<CouponResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

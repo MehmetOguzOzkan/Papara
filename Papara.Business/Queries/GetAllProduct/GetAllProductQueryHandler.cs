@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllProduct
 {
-    internal class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, ResponseHandler<IEnumerable<ProductResponse>>>
+    public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, ResponseHandler<IEnumerable<ProductResponse>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Validation
 {
-    internal class CardValidator : AbstractValidator<Card>
+    public class CardValidator : AbstractValidator<Card>
     {
         public CardValidator()
         {

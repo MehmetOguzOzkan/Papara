@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Commands.CreateOrder
 {
-    internal class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, ResponseHandler<OrderResponse>>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, ResponseHandler<OrderResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

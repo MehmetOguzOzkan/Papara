@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Commands.CreateCategory
 {
-    internal class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ResponseHandler<CategoryResponse>>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ResponseHandler<CategoryResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

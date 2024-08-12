@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Validation
 {
-    internal class MoneyTransferRequestValidator : AbstractValidator<MoneyTransferRequest>
+    public class MoneyTransferRequestValidator : AbstractValidator<MoneyTransferRequest>
     {
         public MoneyTransferRequestValidator() 
         {

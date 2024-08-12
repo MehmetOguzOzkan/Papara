@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllOrder
 {
-    internal class GetAllOrderQueryHandler : IRequestHandler<GetAllOrderQuery, ResponseHandler<IEnumerable<OrderResponse>>>
+    public class GetAllOrderQueryHandler : IRequestHandler<GetAllOrderQuery, ResponseHandler<IEnumerable<OrderResponse>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

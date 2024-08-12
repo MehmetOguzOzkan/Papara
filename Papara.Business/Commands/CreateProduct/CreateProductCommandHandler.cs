@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Commands.CreateProduct
 {
-    internal class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ResponseHandler<ProductResponse>>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ResponseHandler<ProductResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

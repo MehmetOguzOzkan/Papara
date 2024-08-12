@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Data.Repositories
 {
-    internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly PaparaDbContext _context;
 

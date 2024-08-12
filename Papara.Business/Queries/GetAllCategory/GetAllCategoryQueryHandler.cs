@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllCategory
 {
-    internal class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, ResponseHandler<IEnumerable<CategoryResponse>>>
+    public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, ResponseHandler<IEnumerable<CategoryResponse>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

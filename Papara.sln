@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Papara.Business", "Papara.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Papara.Data", "Papara.Data\Papara.Data.csproj", "{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Papara.Test", "Papara.Test\Papara.Test.csproj", "{2E70EF4A-1AF2-4658-8289-D8C87171C512}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C2FE72A-04CD-4BE6-845C-E7FE87DC5EE9} = {8C2FE72A-04CD-4BE6-845C-E7FE87DC5EE9}
+		{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA} = {C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,10 @@ Global
 		{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91CCF76-B9C6-4AF9-BCB9-601FE7FBC7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E70EF4A-1AF2-4658-8289-D8C87171C512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E70EF4A-1AF2-4658-8289-D8C87171C512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E70EF4A-1AF2-4658-8289-D8C87171C512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E70EF4A-1AF2-4658-8289-D8C87171C512}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Papara.Business.Queries.GetAllCoupon
 {
-    internal class GetAllCouponQueryHandler : IRequestHandler<GetAllCouponsQuery, ResponseHandler<IEnumerable<CouponResponse>>>
+    public class GetAllCouponQueryHandler : IRequestHandler<GetAllCouponsQuery, ResponseHandler<IEnumerable<CouponResponse>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
